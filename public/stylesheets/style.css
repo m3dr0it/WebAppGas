@@ -1,8 +1,74 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body{
+  font-family: "open-sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f3f3f4;
+  height: 100%;
+  color: #676a6c;
+}
+#sidebar-wrapper {
+  background-color: #2f4050;
+  width: 20%;
 }
 
-a {
-  color: #00B7FF;
+#sidebar-wrapper h2{
+  font-weight: bold;
+  color: white;
+}
+
+.nav-link{
+  font-weight: bold;  color:white;
+}
+
+.display-table{
+height: 100%;
+display:table;
+padding:0px;
+}
+.display-table-row{
+  height: 100%;
+  display: table-row;
+}
+
+.display-table-cell{
+  height: 100%;
+  display: table-cell;
+  float :none;
+}
+
+.container{
+	width: auto;
+	height: 180px;
+	margin: 50px auto;
+}
+.container .box{
+	width : auto;
+	height: 180px;
+	align-content: center;
+}
+.container .box .chartKapasitas{
+	position:relative;
+  align-self: center;
+	width: 180px;
+	height: 180px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 42px;
+	line-height: 180px;
+}
+.container .box .chartKebocoran{
+	position: relative;
+	width: 180px;
+	height: 180px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 42px;
+	line-height: 180px;
+}
+.container .box canvas{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.card .card-body{
+  background-color: #ff00;
 }

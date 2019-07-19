@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      table tr{
+        cursor: pointer;
+        transition: all .25s ease-in-out;
+      }
+      table tr:hover{
+        background-color: #ddd;
+      }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+<!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Sistem Informasi Gas</title>
+  </head>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <body>
+    <div class="container-fluid display-table">
+          <div class="row display-table-row">
+            <div class="col-2 display-table-cell" id="sidebar-wrapper">
+              <h2 >Sistem Informasi Gas Online</h2>
+              <hr color="white" />
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" id="v-pills-home-tab"  href="/pangkalan/dashboard-pangkalan" role="tab" aria-selected="false">Monitoring Gas</a>
+                <a class="nav-link" id="v-pills-profile-tab"  href="/pangkalan/daftar-pelanggan" role="tab"  aria-selected="true">Pelanggan</a>
+                <a class="nav-link" id="v-pills-messages-tab"  href="/pangkalan/calon-pelanggan" role="tab" aria-selected="false">Calon Pelanggan</a>
+                <a class="nav-link  active" id="v-pills-messages-tab"  href="/pangkalan/alat-monitoring" role="tab"  aria-selected="false">Alat Monitoring</a>
+                <a class="nav-link" id="panduan"  href="/pangkalan/panduan" role="tab"  aria-selected="false">Panduan</a>                
+                <a class="nav-link" id="v-pills-settings-tab"  href="/pangkalan/logout" role="tab" aria-selected="false">Keluar</a>
+              </div>
+            </div>
+            <div class="col-9 display-table-cell box" id="page-content-wrapper">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2 class="h2">Informasi Pelanggan</h2>
+          </div>
+                <table class="table" id="tablePelanggan">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Token</th>
+                          <th scope="col"></th>
+
+                        </tr>
+                      </thead>
+                    {{#each dataAlat}}
+                      <tbody>
+                        <tr>
+                          <td>{{idAlat}}</td>
+                          <td>{{token}}</td>
+                          <td width="175">
+                                <!-- Hapus -->
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDeleteAlat" id="buttonDeleteAlat">
+                                Hapus
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalDeleteAlat" tabindex="-1" role="dialog" aria-labelledby="modalDeleteAlat" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Yakin Ingin Menghapus Data ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form action="/pangkalan/alat-monitoring/hapus-alat" method="POST">
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">ID</label>
+                                            <input type="text" class="form-control" id="idToDelete" name="idAlat" readonly>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">Token</label>
+                                            <textarea type="text" rows="3" class="form-control" id="nameToDelete" name="nama" readonly></textarea
+                                          </div>
+                                          <br></br>
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                        </form>
+                                      </div>
+                                   </div>
+                                  </div>
+                                </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                      {{/each}}
+                    </table>
+                    <!-- Modal Tambah-->
+
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalTambahAlat" id="buttonTambahAlat">
+                    Tambah
+                    </button>
+                    <div class="modal fade" id="modalTambahAlat" tabindex="-1" role="dialog" aria-labelledby="modalTambahAlat" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Alat</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="/pangkalan/alat-monitoring/tambah-alat" method="POST">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">ID</label>
+                                <input type="text" class="form-control" id="idAlat" name="idAlat">
+                              </div>
+                            <button type="submit" class="btn btn-success btn-sm">Tambah</button>
+                            </form>
+                          </div>
+                       </div>
+                      </div>
+                    </div>
+                    <!-- Modal Konfigurasi Alat-->
+                    <button type="button" id="buttonKonfAlat" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalKopnfigurasiAlat">
+                    Kongirasi Alat
+                    </button>
+                    <div class="modal fade" id="modalKopnfigurasiAlat" tabindex="-1" role="dialog" aria-labelledby="modalKonfigurasiAlat" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Konfigurasi Alat</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="/pangkalan/alat-monitoring/konfigurasi-alat" method="POST">
+                              <div class="form-group">
+                                <label for="IdALat">ID Alat</label>
+                                <input type="text" class="form-control" id="idAlat" name="idAlat">
+                              </div>
+                              <div class="form-group">
+                                <label for="SSID">SSID</label>
+                                <input type="text" class="form-control" id="ssid" name="ssid">
+                              </div>
+                              <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input type="password" class="form-control" id="password-ap" name="passwordAp">
+                              </div>
+                              <div class="form-group">
+                                <label for="Port">Port</label>
+                                <select class="form-control" id="portOpen" name="portOpen">
+                                </select>
+                                <button class="btn btn-success btn-sm" id="detekPort" type="button">Deteksi Port</button>
+                              </div>
+                            <button type="submit" class="btn btn-success btn-sm">Kirim</button>
+                            </form>
+                          </div>
+                       </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+      </div>
+    <!-- Optional JavaScript -->
+
+    <script>
+    var socket = io();
+    var timer;
+    $('#buttonKonfAlat').click(function() {
+      socket.emit("konfig-alat","get open port");
+      socket.on('portOpen',function(newOptions) {
+        console.log(newOptions);
+          var selectedOption = 'green';
+          var select = $('#portOpen');
+          if(select.prop) {
+            var options = select.prop('options');
+          }
+          else {
+            var options = select.attr('options');
+          }
+          $('option', select).remove();
+          $.each(newOptions, function(val, port) {
+            if (port.manufacturer) {
+              $('#portOpen').append(new Option(port.comName, port.comName, true, true));
+            }
+          });
+          select.val(selectedOption);
+      })
+    })
+    $('#detekPort').click(function() {
+      socket.emit("konfig-alat","get open port");
+      socket.on('portOpen',function(newOptions) {
+        console.log(newOptions);
+          var selectedOption = 'green';
+          var select = $('#portOpen');
+          if(select.prop) {
+            var options = select.prop('options');
+          }
+          else {
+            var options = select.attr('options');
+          }
+          $('option', select).remove();
+          $.each(newOptions, function(val, port) {
+            if (port.manufacturer) {
+              $('#portOpen').append(new Option(port.comName, port.comName, true, true));
+            }
+          });
+          select.val(selectedOption);
+      })
+    })
+
+      $('.table tbody').on('click','#buttonUbahData',function(){
+      var currow = $(this).closest('tr');
+      var col1 = currow.find('td:eq(0)').text();
+      var col2 = currow.find('td:eq(1)').text();
+      var col3 = currow.find('td:eq(2)').text();
+      var col4 = currow.find('td:eq(3)').text();
+      document.getElementById('idUbahData').value = col1;
+      document.getElementById('namaLengkapUbahData').value = col2;
+      document.getElementById('alamatUbahData').value = col3;
+      document.getElementById('noHpUbahData').value = col4;
+      });
+
+      $('.table tbody').on('click','#buttonDeleteAlat',function(){
+      var currow = $(this).closest('tr');
+      var col1 = currow.find('td:eq(0)').text();
+      var col2 = currow.find('td:eq(1)').text();
+      var col3 = currow.find('td:eq(2)').text();
+      var col4 = currow.find('td:eq(3)').text();
+
+      document.getElementById('idToDelete').value = col1;
+      document.getElementById('nameToDelete').value = col2;
+      document.getElementById('alamatToDelete').value = col3;
+      });
+      </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

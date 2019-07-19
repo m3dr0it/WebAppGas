@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+      table tr{
+        cursor: pointer;
+        transition: all .25s ease-in-out;
+      }
+      table tr:hover{
+        background-color: #ddd;
+      }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Sistem Informasi Gas</title>
+  </head>
+  <body>
+    <div class="container-fluid display-table">
+          <div class="row display-table-row">
+            <div class="col-2 display-table-cell" id="sidebar-wrapper">
+              <h2 >Sistem Informasi Gas Online</h2>
+              <hr color="white" />
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" id="v-pills-home-tab"  href="/pelanggan/dashboard" role="tab" aria-selected="false">Monitoring Gas</a>
+                <a class="nav-link" id="v-pills-profile-tab"  href="/pelanggan/biodata" role="tab"  aria-selected="false">Profil</a>
+                <a class="nav-link active" id="v-pills-panduan-tab"  href="/pelanggan/panduan" role="tab"  aria-selected="true">Panduan</a>
+                <a class="nav-link" id="v-pills-settings-tab"  href="/pelanggan/logout" role="tab"  aria-selected="false">Keluar</a>
+              </div>
+            </div>
+            <div class="col-9 display-table-cell box" id="page-content-wrapper">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2 class="h2">Panduan</h2>
+              </div>
+                <div class="tab-content" id="v-pills-tabContent">
+                <p>Cara Mengkonfigurasi Alat Monitoring Gas</p>
+                Alat dan Bahan yang dibutuhkan :
+<br>                  1. Komputer/Laptop
+<br>                  2. Google Crhome, bisa di download di sini : <a href="https://www.google.com/intl/id_id/chrome/">Google Chrome</a>
+<br>                  3. Aplikasi Serial Monitor dari Chrome Web store bisa di download disini : <a href="https://chrome.google.com/webstore/detail/serial-monitor/ohncdkkhephpakbbecnkclhjkmbjnmlo">Serial Monitor</a>
+<br>
+<br>                  Langkah - Langkah Mengkonfigurasi alat
+<br>                  1. Menyiapkan alat monitoring gas
+<br>                  2. Menghubungkan alat monitoring ke laptop/komputer menggunakan USB.
+<br>                  3. Membuka Aplikasi Serial Monitor Pada Google Chrome
+<br>                     Cara membuka menu aplikasi di google chrome :
+<br>                     - Buka "chrome://apps" di address bar
+<br>
+<br>                      <img src="/images/4.png" width="80%" height="100%">
+<br>
+<br>
+<br>
+<br>                  4. Memilih Serial port yang terhubung
+<br>
+<br>                     <img src="/images/6.png" width="80%" height="100%">
+<br>                    Contoh Port yang terhubung pada gambar diatas adalah COM4
+<br>
+<br>                  5. Mengatur baudrate ke 115200.
+<br>
+<br>                     <img src="/images/7.png" width="80%" height="100%">
+<br>
+<br>
+<br>                  6. Klik connect.
+<br>                  7. Memamsukan SSID wifi yang akan dipakan untuk menghubungkan alat monitoring ke internet.
+<br>
+<br>                     <img src="/images/8.png" width="80%" height="100%">
+<br>
+<br>
+<br>                  8. Masukan password wifi
+<br>
+<br>                     <img src="/images/9.png" width="80%" height="100%">
+<br>
+<br>
+<br>                  9. Masukan Id Alat. Id alat dapat dilihat pada halaman profile pada aplikasi web maupun android.
+<br>
+<br>                     <img src="/images/9.png" width="80%" height="100%">
+<br>
+<br>
+<br>                  10. Masukan token alat. Token alat dapat dilihat pada halaman profile aplikasi web maupun android.
+<br>
+<br>                     <img src="/images/9.png" width="80%" height="100%">
+<br>
+<br>
+<br>                  11. Tunggu beberapa detik. Apabila ada tulisan terhubung, maka alat monitoring sudah terhubung ke internet, dan siap untuk digunakan.
+<br>
+<br>                     <img src="/images/10.png" width="80%" height="100%">
+<br>
+<br>
+<br>                  12. Selesai.
+<br>
+<br>                  Catatan : Apabila SSID atau Password Wifi yang digunakan berubah, maka alat juga perlu dikonfigurasi ulang.
+<br>
+<br>
+                </div>
+            </div>
+            </div>
+         </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  </body>
+</html>

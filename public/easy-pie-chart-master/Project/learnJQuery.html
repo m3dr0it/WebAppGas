@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>belajar jQuery</title>
+	<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.js"></script>
+	<script>
+		var timer;
+		var nilai=0;
+		clearInterval(timer);
+		$(document).ready(function(){
+			timer = setInterval(function(){
+				$(".chart").attr('data-percent',nilai)
+				$(".percent").text(nilai)
+				nilai++;
+			},5000)
+		}); 
+	</script>
+</head>
+
+<body>
+	<h1 class="test">anjing</h1>
+	<div class="container">
+		<div class="chart" data-percent="100">
+			<div class="percent">fadfa</div>
+		</div>
+	</div>
+	<button>babi</button>
+
+</body>
+</html>
