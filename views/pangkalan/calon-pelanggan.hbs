@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      table tr{
+        cursor: pointer;
+        transition: all .25s ease-in-out;
+      }
+      table tr:hover{
+        background-color: #ddd;
+      }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Sistem Informasi Gas</title>
+  </head>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <body>
+    <div class="container-fluid display-table">
+          <div class="row display-table-row">
+            <div class="col-2 display-table-cell" id="sidebar-wrapper">
+              <h2 >Sistem Informasi Gas Online</h2>
+              <hr color="white" />
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" id="v-pills-home-tab"  href="/pangkalan/dashboard-pangkalan" role="tab" aria-selected="false">Monitoring Gas</a>
+                <a class="nav-link " id="v-pills-profile-tab"  href="/pangkalan/daftar-pelanggan" role="tab"  aria-selected="false">Pelanggan</a>
+                <a class="nav-link active" id="v-pills-messages-tab"  href="/pangkalan/calon-pelanggan" role="tab" aria-selected="true">Calon Pelanggan</a>
+                <a class="nav-link" id="v-pills-messages-tab"  href="/pangkalan/alat-monitoring" role="tab"  aria-selected="false">Alat Monitoring</a>
+                <a class="nav-link" id="panduan"  href="/pangkalan/panduan" role="tab"  aria-selected="false">Panduan</a>  
+                <a class="nav-link" id="v-pills-settings-tab"  href="/pangkalan/logout" role="tab" aria-selected="false">Keluar</a>
+              </div>
+            </div>
+            <div class="col-9 display-table-cell box" id="page-content-wrapper">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2 class="h2">Informasi Pelanggan</h2>
+            </div>
+                <table class="table" id="tablePelanggan">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Nama</th>
+                          <th scope="col">Alamat</th>
+                          <th scope="col">No HP</th>
+                          <th scope="col">Email</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                    {{#each datacalonpelanggan}}
+                      <tbody>
+                        <tr>
+                          <td>{{idPelanggan}}</td>
+                          <td>{{nama}}</td>
+                          <td>{{alamat}}</td>
+                          <td>{{noHp}}</td>
+                          <td>{{email}}</td>
+                          <td class="hidetext" aria-hidden="true" hidden>{{password}}</td>
+                          <td>
+                              <!-- Konfirmasi-->
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalChangeData" id="buttonUbahData">
+                                Konfirmasi
+                            </button>
+                            <!-- Modal Konfirmasi-->
+                              <div class="modal fade" id="modalChangeData" tabindex="-1" role="dialog" aria-labelledby="modalChangeData" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="/pangkalan/konfirmasi-pelanggan" method="POST">
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">ID</label>
+                                            <input type="text" class="form-control" id="idKonfirmasi" name="id">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">Nama Lengkap</label>
+                                            <input type="text" class="form-control" id="namaLengkapKonfirmasi"  placeholder="Masukan Nama Lengkap" name="nama" >
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">Alamat Lengkap</label>
+                                            <textarea class="form-control" id="alamatKonfirmasi" rows="3" name="alamat" ></textarea>
+                                            </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">No HP</label>
+                                            <input type="text" class="form-control" id="noHpKonfirmasi" placeholder="No Hp" name="nohp">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">Email</label>
+                                            <input type="email" class="form-control" id="emailKonfirmasi" placeholder="Email" name="email">
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">Password</label>
+                                            <input type="password" class="form-control" id="passwordKonfirmasi"  name="password" readonly>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="exampleInputEmail1">ID Alat</label>
+                                            <input type="text" class="form-control" id="idAlatKonfirmasi"  placeholder="ID Alat" name="idAlat" required>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                      </div>
+                                   </div>
+                                  </div>
+                                  </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                      {{/each}}
+                    </table>
+                </div>
+            </div>
+         </div>
+      </div>
+
+
+    <!-- Optional JavaScript -->
+
+    <script>
+      $('.table tbody').on('click','#buttonUbahData',function(){
+      var currow = $(this).closest('tr');
+      var col1 = currow.find('td:eq(0)').text();
+      var col2 = currow.find('td:eq(1)').text();
+      var col3 = currow.find('td:eq(2)').text();
+      var col4 = currow.find('td:eq(3)').text();
+      var col5 = currow.find('td:eq(4)').text();
+      var col6 = currow.find('td:eq(5)').text();
+
+      document.getElementById('idKonfirmasi').value = col1;
+      document.getElementById('namaLengkapKonfirmasi').value = col2;
+      document.getElementById('alamatKonfirmasi').value = col3;
+      document.getElementById('noHpKonfirmasi').value = col4;
+      document.getElementById('emailKonfirmasi').value = col5;
+      document.getElementById('passwordKonfirmasi').value = col6;
+      });
+
+      $('.table tbody').on('click','#buttonDeleteData',function(){
+      var currow = $(this).closest('tr');
+      var col1 = currow.find('td:eq(0)').text();
+      var col2 = currow.find('td:eq(1)').text();
+      var col3 = currow.find('td:eq(2)').text();
+      var col4 = currow.find('td:eq(3)').text();
+
+      document.getElementById('idToDelete').value = col1;
+      document.getElementById('nameToDelete').value = col2;
+      document.getElementById('alamatToDelete').value = col3;
+      });
+      </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

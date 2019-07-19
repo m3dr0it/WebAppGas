@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/loginstyle.css" />
+    <title>Pendaftaran</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <section class="row justify-content-center">
+        <section class="col-12 col-sm-6 col-md-8">
+          <div class="header">
+              <center>
+                <h3>Pendaftaran</h3>
+              </center>
+          </div>
+          <form action="/pendaftaran/cek-id" method="POST">
+              <div class="form-group row">
+                <label for="id" class="col-sm-2 col-form-label">ID</label>
+                <div class="col-sm-10">
+                  <input type="id" class="form-control" id="id" placeholder="ID" value="{{id}}" name="id" required readonly>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="id" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-7">
+                  <h6 id="keterangan">{{resCekId}}</h6>
+                </div>
+              </div>
+
+          </form>
+          <form action="/pendaftaran" method="POST">
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <input hidden type="id" class="form-control" id="id" placeholder="ID" value="{{id}}" name="id" required>
+                </div>
+              </div>
+              <div class="form-group row">
+               <label for="id" class="col-sm-2 col-form-label">Nama</label>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="First name" name="namaDepan" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Last name" name="namaBelakang" required>
+              </div>
+            </div>
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Alamat</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="alamat" rows="3" name="alamat" name="alamat" required></textarea>
+                </div>
+              </div>
+            <div class="form-group row">
+              <label for="nohp" class="col-sm-2 col-form-label">No. HP</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="nohp" placeholder="Masukan No HP yang aktif" name="nohp" required>
+                </div>
+              </div>
+            <div class="form-group row">
+              <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="email" placeholder="Masukan Email" name="email" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Jenis Gas</label>
+                  <div class="col-sm-10">
+                    <select id="jenisGas" name="jenisGas">
+                      <option>3 Kg</option>
+                      <option>12 Kg</option>
+                    </select>
+                  </div>
+              </div>
+            <div class="form-group row">
+              <label for="nohp" class="col-sm-2 col-form-label" aria-required="true">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="password1" placeholder="Masukan password" required>
+                </div>
+              </div>
+             <div class="form-group row">
+              <label for="nohp" class="col-sm-2 col-form-label" aria-required="true"> Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="password2" placeholder="Maskan password sekali lagi" name="password" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col" align="center">
+                  <button type="submit" class="btn btn-primary" align="center">Daftar</button>
+                </div>
+              </div>
+          </form>
+        </section>
+    </section>
+</div>
+
+<script type="text/javascript">
+            window.onload = function () {
+                document.getElementById("password1").onchange = validatePassword;
+                document.getElementById("password2").onchange = validatePassword;
+            }
+            function validatePassword(){
+                var pass2=document.getElementById("password2").value;
+                var pass1=document.getElementById("password1").value;
+                if(pass1!=pass2)
+                    document.getElementById("password2").setCustomValidity("Passwords Tidak Sama, Coba Lagi");
+                else
+                    document.getElementById("password2").setCustomValidity('');
+            }
+</script>
+<script>
+
+</script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

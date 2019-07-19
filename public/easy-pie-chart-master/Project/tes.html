@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>vanilla</title>
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+	<div class="container">
+		<div  class="box">
+			<div class="chart" data-percent="0">
+				<div class="percent"></div>
+			</div>	
+		</div>
+		<button class="tai">tai</button>
+	</div>
+
+	<button class="babi">Update chart</button>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.js"></script>
+	
+	<script>
+		var timer;
+		clearInterval(timer);
+		document.addEventListener('DOMContentLoaded', function() {
+		var chart = window.chart = new EasyPieChart(document.querySelector('.chart'), {
+				size : 180,
+	        	barColor : '#17d3e6',
+	        	scaleColor : false,
+	        	lineWidth : 20,
+	        	trackColor : false,
+	        	animate : 2000,
+			onStep: function(from, to, percent) {
+				this.el.children[0].innerHTML = Math.round(percent);
+			}
+		});
+		timer = setInterval(function(){
+			chart.update(Math.random()*200-100);
+		},5000)
+	});
+	</script>
+</body>
+</html>

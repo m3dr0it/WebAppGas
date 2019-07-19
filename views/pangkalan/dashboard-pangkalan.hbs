@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/easy-pie-chart-master/dist/easypiechart.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.js"></script>
+
+    <style>
+      table tr{
+        cursor: pointer;
+        transition: all .25s ease-in-out;
+      }
+      table tr:hover{
+        background-color: #ddd;
+
+      }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Sistem Informasi Gas</title>
+  </head>
+  <body>
+    <div class="container-fluid display-table">
+          <div class="row display-table-row">
+            <div class="col-2 display-table-cell" id="sidebar-wrapper">
+              <h2 >Sistem Informasi Gas Online</h2>
+              <hr color="white" />
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab"  href="/pangkalan/dashboard-pangkalan" role="tab" aria-selected="false">Monitoring Gas</a>
+                <a class="nav-link" id="v-pills-profile-tab"  href="/pangkalan/daftar-pelanggan" role="tab"  aria-selected="false">Pelanggan</a>
+                <a class="nav-link" id="v-pills-messages-tab"  href="/pangkalan/calon-pelanggan" role="tab"  aria-selected="false">Calon Pelanggan</a>
+                <a class="nav-link " id="v-pills-messages-tab"  href="/pangkalan/alat-monitoring" role="tab"  aria-selected="true">Alat Monitoring</a>
+                <a class="nav-link" id="panduan"  href="/pangkalan/panduan" role="tab"  aria-selected="false">Panduan</a>  
+                <a class="nav-link" id="v-pills-settings-tab"  href="/pangkalan/logout" role="tab"  aria-selected="false">Keluar</a>
+              </div>
+            </div>
+            <div class="col-9 display-table-cell box" id="page-content-wrapper">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2 class="h2">Dashboard Pangkalan</h2>
+          </div>
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                  <div class="row">
+                    <script>
+                    var socket = io();
+                    var timer;
+                    clearInterval(timer);
+                      </script>
+                    {{#each dataGas}}
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                    var chart{{idAlat}} = window.chartKapasitas{{idAlat}} = new EasyPieChart(document.querySelector('#chart{{idPelanggan}}'), {
+                            size : 180,
+                            barColor : '#007bff',
+                            scaleColor : false,
+                            lineWidth : 20,
+                            trackColor : false,
+                            animate : 2000,
+                      onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = Math.round(percent)+"%";
+                      }
+                    });
+                  })
+                  var value = 0;
+                  var errorFound{{idPelanggan}} = true;
+                  var data;
+                  var msgPelanggan = {
+                    'idPelanggan' : '{{idPelanggan}}',
+                    'idAlat'  : '{{idAlat}}'
+                  }
+                  console.log(msgPelanggan);
+                  socket.on('{{idAlat}}',function(msg) {
+                    console.log(msg);
+                      if (msg.error || msg.out == undefined) {
+                        console.log('{{idAlat}}');
+                        console.log("undefined");
+                        window.errorFound{{idPelanggan}} = true;
+                        $("#textError{{idPelanggan}}").text("Perangkat Tidak Ditemukan");
+                        $("#textError{{idPelanggan}}").show();
+                      }else{
+                        window.errorFound{{idPelanggan}} = false;
+                        if (msg.out.kapasitas<4980) {
+                            console.log('{{idAlat}}');
+                            console.log("Kurang dari 4980");
+                          $("#textError{{idPelanggan}}").text("Tabung Tidak Terdeteksi");
+                          $("#textError{{idPelanggan}}").show();
+                          $('#chart{{idPelanggan}}').hide();
+                        }else {
+                            console.log("'{{idAlat}}'"+"OK");
+                          window.value = (msg.out.kapasitas-5000)/3000 * 100;
+                          chartKapasitas{{idAlat}}.update(value);
+                          $("#textError{{idPelanggan}}").hide();
+                          $('.chartKapasitas').show();
+                          $('.chartKapasitas').attr('data-percent',value);
+                          console.log($('.chartKapasitas').attr('data-percent'));
+                        }
+                      }
+                    })
+                    </script>
+                    <div class="col-4" style="padding:10px">
+                      <div class="card" style="height:400px;">
+                        <div class="card-body">
+                          <h5 id="idAlat{{idAlat}}">ID Alat : {{idAlat}}</h4>
+                          <h5 id="idPelanggan{{idPelanggan}}">ID Pelanggan : {{idPelanggan}}</h5>
+                          <div class="container">
+                            <div  class="box">
+                              <h4 id="textError{{idPelanggan}}">Perangkat Offline</h4>
+                              <div class="chartKapasitas" id="chart{{idPelanggan}}" data-percent="">
+                                <div class="percent"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{/each}}
+                    <script>
+                    timer = setInterval(function() {
+                      socket.emit('pangkalan',"Socket Pangkalan");
+                    },3000)
+                    </script>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+         </div>
+       </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    </script>
+  </body>
+</html>

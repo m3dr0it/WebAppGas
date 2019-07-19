@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Easy Pie Chart</title>
+	<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.js"></script>
+</head>
+<link rel="stylesheet" type="text/css" href="style.css"></li>
+<body>
+	<div class="container">
+		<div class="box">
+			<div class="chart" data-percent="100%">56%</div>
+		</div>
+	</div>
+		<div class="container">
+			
+		<button>klik</button>
+	
+		</div>
+	<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.js"></script>
+	<script>
+		clearInterval(timer);
+		var timer;
+		var nilai=0;
+	   document.addEventListener('DOMContentLoaded', function() {
+	   		       	$('.chart').easyPieChart({
+	        		size : 180,
+	        		barColor : '#17d3e6',
+	        		scaleColor : false,
+	        		lineWidth : 20,
+	        		trackColor : false,
+	        		animate : 2000
+	            //your options goes here
+	        	});
+		$('button').click(function(){
+			$(".chart").attr("data-percent","50%")	
+		})
+	    });
+	</script>
+</body>
+</html>

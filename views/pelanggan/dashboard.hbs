@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/easy-pie-chart-master/dist/easypiechart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.js"></script>
+        <style>
+      table tr{
+        cursor: pointer;
+        transition: all .25s ease-in-out;
+      }
+      table tr:hover{
+        background-color: #ddd;
+      }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Sistem Informasi Gas</title>
+  </head>
+  <body>
+    <div class="container-fluid display-table">
+          <div class="row display-table-row">
+            <div class="col-2 display-table-cell" id="sidebar-wrapper">
+              <h2 >Sistem Informasi Gas Online</h2>
+              <hr color="white" />
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab"  href="/pelanggan/dashboard" role="tab" aria-selected="true">Monitoring Gas</a>
+                <a class="nav-link" id="v-pills-profile-tab"  href="/pelanggan/biodata" role="tab"  aria-selected="false">Profil</a>
+                <a class="nav-link" id="v-pills-panduan-tab"  href="/pelanggan/panduan" role="tab"  aria-selected="false">Panduan</a>
+                <a class="nav-link" id="v-pills-logout-tab"  href="/pelanggan/logout" role="tab"  aria-selected="false">Keluar</a>
+              </div>
+            </div>
+            <div class="col-9 display-table-cell box" id="page-content-wrapper">
+              {{#each dataGas}}
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2 class="h2">Dashboard Pelanggan</h2>
+            <h4>ID : {{idAlat}}</h4>
+          </div>
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                  <div class="card-deck">
+                    <div class="card">
+                      <div class="card-body">
+                        <h2 id="nilaiGas">Kapasitas Gas</h3>
+                        <div class="container">
+                          <div  class="box">
+                            <h4 id="textError"{{idAlat}}>Perangkat Offline</h4>
+                            <div class="chartKapasitas" data-percent="">
+                              <div class="percent"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <h4 id="idAlat" hidden>{{idAlat}}</h3>
+                        <h4 id="idPelanggan" hidden>{{idPelanggan}}</h6>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-body">
+                        <h2 id="nilaiGas">Kebocoran</h3>
+                        <div class="container">
+                          <div  class="box">
+                            <div>
+                              <img id="kebocoranAman" src="/images/aman.png" width="55%" height="55%">
+                              <img id="bocor" src="/images/bocor.png" width="50%" height="50%" hidden>
+                            </div>
+                          </div>
+                        </div>
+                        <h4 id="idAlat" hidden>{{idAlat}}</h3>
+                        <h4 id="idPelanggan" hidden>{{idPelanggan}}</h6>
+                      </div>
+                    </div>
+                    <script>
+                    var socket = io();
+                    document.addEventListener('DOMContentLoaded', function() {
+                    var chartKapasitas = window.chartKapasitas = new EasyPieChart(document.querySelector('.chartKapasitas'), {
+                            size : 180,
+                            barColor : '#007bff',
+                            scaleColor : false,
+                            lineWidth : 20,
+                            trackColor : false,
+                            animate : 2000,
+                      onStep: function(from, to, percent) {
+                        this.el.children[0].innerHTML = Math.round(percent)+"%";
+                      }
+                    });
+                    var timer;
+                    var data;
+                    var errorFound = false;
+                    var valueKapasitas=0;
+                    var valueKebocoran=0;
+                    clearInterval(timer);
+                     var msgPelanggan = {
+                      'idPelanggan' : '{{idPelanggan}}',
+                      'idAlat'  : '{{idAlat}}'
+                    }
+                    timer = setInterval(function(){
+                        console.log(socket.id);
+                          socket.emit('id',msgPelanggan);
+                    },3000);
+
+                    socket.on('{{idAlat}}', function(err,pesanErr,kapasitas,kebocoran){
+                      if (err) {
+                        console.log(pesanErr);
+                        $('.chartKapasitas').hide();
+                        $('.chartKebocoran').hide();
+                        $("#textError").text(pesanErr);
+                        $("#textError").show();
+                      }else {
+                        console.log(pesanErr);
+                        console.log("kapasitas "+kapasitas);
+                        console.log("Kebocoran "+kebocoran);
+                        $("#textError").hide();
+                        if (kapasitas < 4980) {
+                          console.log("kurang dari 4980");
+                          $('.chartKapasitas').hide();
+                          $('.chartKebocoran').hide();
+                          $("#textError").text("Tabung Tidak Terdeteksi");
+                          $("#textError").show();
+                        }else {
+                          if (kapasitas > 8000) {
+                            kapasitas = 8000;
+                          }
+                          console.log("clear");
+                          window.valueKapasitas = (kapasitas-5000)/3000 * 100;
+                          console.log($('.chartKapasitas').attr('data-percent'));
+                          $('.chartKapasitas').attr('data-percent',valueKapasitas);
+                          chartKapasitas.update(window.valueKapasitas);
+                          $('.chartKapasitas').show();
+                          }
+                          if (kebocoran>180) {
+                              $("#kebocoranAman").hide();
+                              $("#bocor").attr("hidden",false);
+                              $("#bocor").show();
+                              $("#bocor").fadeIn("fast");
+                              $("#bocor").fadeOut("fast");
+                              $("#bocor").fadeIn("fast");
+                              $("#bocor").fadeOut("fast");
+                              $("#bocor").fadeIn("fast");
+                              $("#bocor").fadeOut("fast");
+                              $("#bocor").fadeIn("fast");
+                              $("#bocor").fadeOut("fast");
+                              $("#bocor").fadeIn("fast");
+                              $("#bocor").fadeOut("fast");
+                              $("#bocor").fadeIn("fast");
+                          }else if(kebocoran<=180){
+                              $("#kebocoranAman").show();
+                              $("#bocor").hide();
+                          }
+                        }
+                      });
+                  });
+                    </script>
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+       </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  </body>
+</html>
