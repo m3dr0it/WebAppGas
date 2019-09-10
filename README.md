@@ -4,7 +4,7 @@ Aplikasi Web Monitoring Gas
 ----------------
 Demo Application
 ----------------
-sistem-informasi-gas.herokuapp.com
+http://sistem-informasi-gas.herokuapp.com
 
 ----------
 Account for Login
