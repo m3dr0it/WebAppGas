@@ -1,6 +1,11 @@
 # WebAppGas
 Aplikasi Web Monitoring Gas
 
+----------------
+Demo Application
+----------------
+sistem-informasi-gas.herokuapp.com
+
 ----------
 Account for Login
 ----------
@@ -11,5 +16,7 @@ password : 123
 Pelanggan :
 amdtkj@gmail.com
 password : 12345
+
+
 
 
