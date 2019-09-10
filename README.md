@@ -9,7 +9,7 @@ http://sistem-informasi-gas.herokuapp.com
 ----------
 Account for Login
 ----------
-Pangkalan :
+Agen/Pangkalan :
 email : adminpangkalan@gmail.com
 password : 123
 
