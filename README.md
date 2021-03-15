@@ -10,12 +10,12 @@ http://sistem-informasi-gas.herokuapp.com
 Account for Login
 ----------
 Agen/Pangkalan :
-email : adminpangkalan@gmail.com
+email : admin@pangkalan.com
 password : 123
 
 Pelanggan :
-amdtkj@gmail.com
-password : 12345
+ahmadm@gmail.com
+password : 123
 
 
 
