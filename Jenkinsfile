@@ -11,6 +11,9 @@ pipeline {
          image 'node:14'
      }
   }
+    steps {
+
+       }
      }
      stage('Docker Build Image') {
       agent any
