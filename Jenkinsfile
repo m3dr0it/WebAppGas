@@ -8,25 +8,36 @@ pipeline {
     stage('Node Install') {
       agent {
        docker {
-         image 'node:14'
+         image 'node:10.6.0-alpine'
      }
-      steps {
+  }
+  steps {
 
-       
+       }
      }
-      }
      stage('Docker Build Image') {
       agent any
       steps {
-        sh 'docker build -t m3droit/webappgas .'
+        sh 'docker build -t webappgas .'
       }
     }
     stage('Running Docker') {
       agent any
       steps {
            sh '''#!/bin/bash
-                  docker run -d -p 9999:3000 --name webappgas --restart=always m3droit/webappgas
+                 if [ ! "$(docker ps -q -f name=webappgas)" ]; then
+                     if [ "$(docker ps -aq -f status=exited -f name=webappgas)" ]; then
+                         # cleanup
+                         docker rm webappgas
+                     fi
+                     # run your container
+                     docker run -d -p 8085:80 --name webappgas --restart=always code/mlog-web-management:latest
+                  else
+                  docker container stop webappgas
+                  docker rm webappgas
+                  docker run -d -p 8085:80 --name webappgas --restart=always webappgas
                   # docker system prune --volumes -fa
+                 fi
               '''
       }
     }
