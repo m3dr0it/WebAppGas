@@ -12,7 +12,7 @@ pipeline {
      }
   }
   steps {
-
+      sh 'echo jancuk'
        }
      }
      stage('Docker Build Image') {
