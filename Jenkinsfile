@@ -11,9 +11,6 @@ pipeline {
          image 'node:14'
      }
   }
-  steps {
-       sh 'npm install'
-       }
      }
      stage('Docker Build Image') {
       agent any
