@@ -35,7 +35,7 @@ pipeline {
                   else
                   docker container stop webappgas
                   docker rm webappgas
-                  docker run -d -p 8085:80 --name webappgas --restart=always webappgas
+                  docker run -d -p 9999:3000 --name webappgas --restart=always webappgas
                   # docker system prune --volumes -fa
                  fi
               '''
