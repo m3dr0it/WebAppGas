@@ -31,7 +31,7 @@ pipeline {
                          docker rm webappgas
                      fi
                      # run your container
-                     docker run -d -p 8085:80 --name webappgas --restart=always code/mlog-web-management:latest
+                     docker run -d -p 9999:3000 --name webappgas --restart=always code/mlog-web-management:latest
                   else
                   docker container stop webappgas
                   docker rm webappgas
