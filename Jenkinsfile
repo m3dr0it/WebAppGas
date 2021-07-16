@@ -10,11 +10,11 @@ pipeline {
        docker {
          image 'node:14'
      }
-  }
-    steps {
+      steps {
 
-       }
+       
      }
+      }
      stage('Docker Build Image') {
       agent any
       steps {
